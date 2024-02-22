@@ -1,10 +1,12 @@
 <?php
-require_once "config.php";
+// require_once "src/config.php";
+require_once "vendor/autoload.php";
 $name = $_POST["name"];
 $email = $_POST["email"];
 $message = $_POST["message"];
 $error = 0;
 $res;
+
 if (isset($_POST['submit'])) {
     foreach ($_POST as $key => $value) {
         if (empty($value)) {
@@ -13,7 +15,7 @@ if (isset($_POST['submit'])) {
         }
     }
     if (!$error) {
-        if (strlen($name) > $max_name_length) {
+        if (strlen($name) > max_name_length) {
             $res .= "Name length must be less than 100, ";
             $error = 1;
         }
@@ -21,7 +23,7 @@ if (isset($_POST['submit'])) {
             $res .= "Email must be valid, ";
             $error = 1;
         }
-        if (strlen($message) > $max_message_length) {
+        if (strlen($message) > max_message_length) {
             $res .= "Message must be less than 255 characters, ";
             $error = 1;
         }
@@ -78,6 +80,7 @@ if (isset($_POST['submit'])) {
         </form>
         <?php
     } else {
+
         $res = "Thank you for contacting Us";
         ?>
 
@@ -97,6 +100,11 @@ if (isset($_POST['submit'])) {
         </div>
 
         <?php
+        if (store_file($name, $email)) {
+            die("Contact Saved Sucessfully" . "<br/> To Visit all contacts <a href='index.php?view=display'>CLick Here</a>");
+        } else {
+            die("Error Saving Contact");
+        }
     }
     ?>
 </body>
