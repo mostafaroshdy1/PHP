@@ -3,28 +3,31 @@ require_once "config.php";
 $name = $_POST["name"];
 $email = $_POST["email"];
 $message = $_POST["message"];
-$error = false;
+$error = 0;
 $res;
 if (isset($_POST['submit'])) {
     foreach ($_POST as $key => $value) {
         if (empty($value)) {
             $res .= "$key is required, ";
-            $error = true;
+            $error = 1;
         }
     }
     if (!$error) {
         if (strlen($name) > $max_name_length) {
             $res .= "Name length must be less than 100, ";
-            $error = true;
+            $error = 1;
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $res .= "Email must be valid, ";
-            $error = true;
+            $error = 1;
         }
         if (strlen($message) > $max_message_length) {
             $res .= "Message must be less than 255 characters, ";
-            $error = true;
+            $error = 1;
         }
+    }
+    if ($error != 1) {
+        $error = 2;
     }
 }
 
@@ -41,7 +44,7 @@ if (isset($_POST['submit'])) {
 
 <body>
     <?php
-    if ($error) {
+    if ($error == 0 || $error == 1) {
         ?>
         <h3> Contact Form </h3>
         <div id="after_submit">
