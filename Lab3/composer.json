@@ -1,0 +1,21 @@
+{
+    "name": "mostafaroshdy1/lab3",
+    "autoload": {
+        "psr-4": {
+            "Mostafaroshdy1\\Lab3\\": "src/"
+        },
+        "files": [
+            "config.php"
+        ],
+        "classmap": [
+            "Model/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mostafa Roshdy",
+            "email": "mostafaroshdy1@gmail.com"
+        }
+    ],
+    "require": {}
+}
